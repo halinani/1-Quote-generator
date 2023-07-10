@@ -11,9 +11,15 @@ function loading() {
   quoteContainer.hidden = true;
 }
 
+function complete() {
+  loader.hidden = true;
+  quoteContainer.hidden = false;
+}
+
 let listOfQuotes = [];
 
 function newQuote() {
+  loading();
   const quote = listOfQuotes[Math.floor(Math.random() * listOfQuotes.length)];
 
   quoteAuthor.textContent = quote.author || "Unkonwn";
@@ -26,9 +32,11 @@ function newQuote() {
     quoteText.classList.remove("long-quote");
   }
   quoteText.textContent = quote.text;
+  complete();
 }
 
 async function getQuotes() {
+  loading();
   try {
     const url = "https://type.fit/api/quotes";
     const quotes = await fetch(url);
