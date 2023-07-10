@@ -1,8 +1,15 @@
+const quoteContainer = document.getElementById("quote-container");
 const quoteBody = document.getElementById("quote-body");
 const quoteText = document.getElementById("quote-text");
 const quoteAuthor = document.getElementById("quote-author");
 const twitterBtn = document.getElementById("twitter-btn");
 const newQuteBtn = document.getElementById("new-quote");
+const loader = document.getElementById("loader");
+
+function loading() {
+  loader.hidden = false;
+  quoteContainer.hidden = true;
+}
 
 let listOfQuotes = [];
 
@@ -34,13 +41,13 @@ async function getQuotes() {
 }
 
 getQuotes();
-console.log(listOfQuotes.length);
 
-newQuteBtn.addEventListener("click", () => {
-  newQuote();
-});
-
-twitterBtn.addEventListener("click", () => {
+function sendTweet() {
   const twitterurl = `https://twitter.com/intent/tweet?text=${quoteText.textContent} __ ${quoteAuthor.textContent}`;
   window.open(twitterurl, "_blank");
-});
+}
+
+newQuteBtn.addEventListener("click", newQuote);
+twitterBtn.addEventListener("click", sendTweet);
+
+loading();
